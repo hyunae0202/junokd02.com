@@ -1,0 +1,209 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Noto+Sans+KR:wght@300;400;500;600&family=Noto+Serif+KR:wght@400;500;600&display=swap");
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+==========================================================================
+【AI HANDOVER NOTE】
+1. DESIGN PHILOSOPHY:
+   - Warm Minimalism with Korean Luxury Sensibility: 고급 헤어살롱의 차분하고 세련된 분위기를 brown-beige 무드로 구현. 과도한 장식 없이 여백과 질감으로 프리미엄을 표현하는 Neo-minimalism 접근.
+   - Tactile Elegance: 따뜻한 earth tone과 subtle gradient를 활용해 물리적 공간감 부여. Soft shadow와 gentle rim-light로 depth 표현.
+   - Korean Typography Hierarchy: Noto Serif KR로 브랜드명과 섹션 제목에 권위와 우아함, Noto Sans KR로 본문에 가독성과 현대성 확보. Cormorant Garamond는 영문 accent용.
+
+2. TYPOGRAPHY:
+   - Serif (Noto Serif KR + Cormorant Garamond): 헤어살롱의 전통과 장인정신을 상징. 섹션 타이틀과 브랜드명에 사용해 고급스러운 첫인상 제공. Cormorant의 우아한 세리프는 gold accent와 조화.
+   - Sans (Noto Sans KR): 한글 본문 최적화. 시술 메뉴, 가격, FAQ 등 정보 전달에 명확성 제공. Weight 300-600으로 계층 구조 명확화.
+   - Mono: 전화번호, 주소 등 데이터 표시용 (최소 사용).
+
+3. COLOR SYSTEM:
+   - Brand Core (Mocha Brown, Hue 30): 깊고 따뜻한 갈색(#3B2A1A 기반)을 --brand로 설정. 신뢰감과 안정감, 자연스러운 고급스러움 표현. OKLCH로 변환 시 L=0.22, C=0.05, H=30 (warm brown).
+   - Primary Mapping: --primary는 --brand와 동일한 mocha brown. CTA 버튼, 네비게이션 active state에 사용. --primary-foreground는 warm off-white (beige 계열).
+   - Accent (Gold, Hue 45): --accent는 절제된 gold (#C9A96E 기반, L=0.68, C=0.08, H=45). 네이버 예약 버튼, 디자이너 이름 강조, 가격 하이라이트에 사용. 과도하지 않게 point color로만 활용.
+   - Semantic Colors: --destructive는 muted terracotta (Hue 15, 살롱 무드 유지), --success는 sage green (Hue 145, 자연스러운 예약 완료 피드백), --warning은 amber (Hue 50, gold와 조화).
+   - Background Strategy: Light mode는 warm off-white (--background L=0.98, beige undertone), Dark mode는 deep charcoal brown (L=0.12, H=30 유지)으로 24시간 운영 감각.
+
+4. USAGE GUIDE:
+   - Layout: Full-width hero section (IMAGES.SALON_HERO_4 배경), 이후 centered container (max-width 1200px). Bento-style service cards로 시술 메뉴 그리드 배치.
+   - Effects: Hero section에 subtle backdrop-blur (blur-sm) + dark overlay (bg-black/20)로 텍스트 가독성 확보. 디자이너 카드에 soft shadow (shadow-lg) + hover시 gentle lift (translate-y-1).
+   - Korean SEO: <html lang="ko">, meta description에 "건대 헤어살롱", "준오헤어", "프리미엄 미용실" 키워드 포함. LocalBusiness schema에 address, telephone, openingHours 구조화.
+   - Naver Integration: 예약 버튼은 --accent gold + hover시 brightness 증가. 전화 문의는 --primary brown + tel: protocol.
+   - Accessibility: 한글 본문 최소 16px, line-height 1.7. WCAG AA 대비 확보 (brown on beige 조합 주의, foreground 충분히 어둡게).
+   - Special Notes: FAQ accordion은 --muted background + --border로 구분. 지도 섹션은 --card에 Google Maps embed. 모든 이미지에 Korean alt text 필수.
+==========================================================================
+*/
+
+:root {
+  /* Typography */
+  --font-sans: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', Consolas, monospace;
+  
+  /* Radius */
+  --radius: 0.5rem;
+
+  /* Core UI Tokens */
+  --background: oklch(0.98 0.01 45);
+  --foreground: oklch(0.20 0.02 30);
+  --card: oklch(0.96 0.015 40);
+  --card-foreground: oklch(0.22 0.02 30);
+  --popover: oklch(0.97 0.012 42);
+  --popover-foreground: oklch(0.20 0.02 30);
+  --primary: oklch(0.22 0.05 30);
+  --primary-foreground: oklch(0.96 0.015 45);
+  --secondary: oklch(0.88 0.025 40);
+  --secondary-foreground: oklch(0.25 0.03 30);
+  --muted: oklch(0.92 0.02 42);
+  --muted-foreground: oklch(0.48 0.02 35);
+  --accent: oklch(0.68 0.08 45);
+  --accent-foreground: oklch(0.18 0.02 30);
+  --destructive: oklch(0.55 0.15 15);
+  --destructive-foreground: oklch(0.98 0.01 45);
+  --border: oklch(0.85 0.02 40);
+  --input: oklch(0.88 0.02 40);
+  --ring: oklch(0.68 0.08 45);
+  
+  /* Chart Tokens */
+  --chart-1: oklch(0.68 0.08 45);
+  --chart-2: oklch(0.22 0.05 30);
+  --chart-3: oklch(0.75 0.06 50);
+  --chart-4: oklch(0.58 0.04 35);
+  --chart-5: oklch(0.82 0.03 42);
+  
+  /* Sidebar Tokens */
+  --sidebar: oklch(0.96 0.015 40);
+  --sidebar-foreground: oklch(0.25 0.03 30);
+  --sidebar-primary: oklch(0.22 0.05 30);
+  --sidebar-primary-foreground: oklch(0.96 0.015 45);
+  --sidebar-accent: oklch(0.68 0.08 45);
+  --sidebar-accent-foreground: oklch(0.18 0.02 30);
+  --sidebar-border: oklch(0.88 0.02 40);
+  --sidebar-ring: oklch(0.68 0.08 45);
+}
+
+.dark {
+  --background: oklch(0.12 0.02 30);
+  --foreground: oklch(0.92 0.015 45);
+  --card: oklch(0.15 0.025 32);
+  --card-foreground: oklch(0.90 0.015 42);
+  --popover: oklch(0.14 0.022 31);
+  --popover-foreground: oklch(0.92 0.015 45);
+  --primary: oklch(0.72 0.09 45);
+  --primary-foreground: oklch(0.15 0.02 30);
+  --secondary: oklch(0.25 0.03 32);
+  --secondary-foreground: oklch(0.88 0.02 42);
+  --muted: oklch(0.20 0.025 32);
+  --muted-foreground: oklch(0.62 0.02 38);
+  --accent: oklch(0.75 0.10 45);
+  --accent-foreground: oklch(0.12 0.02 30);
+  --destructive: oklch(0.60 0.18 18);
+  --destructive-foreground: oklch(0.95 0.01 45);
+  --border: oklch(0.28 0.03 32);
+  --input: oklch(0.25 0.03 32);
+  --ring: oklch(0.75 0.10 45);
+  
+  /* Chart Tokens */
+  --chart-1: oklch(0.75 0.10 45);
+  --chart-2: oklch(0.72 0.09 45);
+  --chart-3: oklch(0.68 0.08 50);
+  --chart-4: oklch(0.55 0.06 35);
+  --chart-5: oklch(0.48 0.05 38);
+  
+  /* Sidebar Tokens */
+  --sidebar: oklch(0.15 0.025 32);
+  --sidebar-foreground: oklch(0.88 0.02 42);
+  --sidebar-primary: oklch(0.72 0.09 45);
+  --sidebar-primary-foreground: oklch(0.15 0.02 30);
+  --sidebar-accent: oklch(0.75 0.10 45);
+  --sidebar-accent-foreground: oklch(0.12 0.02 30);
+  --sidebar-border: oklch(0.25 0.03 32);
+  --sidebar-ring: oklch(0.75 0.10 45);
+}
+
+@theme inline {
+  /* Shadcn Core Mapping */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Charts Mapping */
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  /* Sidebar Mapping */
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Typography */
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+
+  /* Radius */
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    @apply scroll-smooth antialiased;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans min-h-screen;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight;
+  }
+
+  code, pre {
+    @apply font-mono;
+  }
+
+  ::selection {
+    @apply bg-primary/20 text-primary;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/20 rounded-full hover:bg-muted-foreground/40;
+  }
+}
